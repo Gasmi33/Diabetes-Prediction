@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info</title>
+<!--    <link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+<style >
+        body {
+            font-family: Arial, sans-serif;
+            background-image:url("../static/DiabetesPrediction/images/diab.jpg") ;
+            background-size: cover;
+
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120vh;
+        }
+
+        form {
+            max-width: 1000px;
+            padding-bottom : 0;
+            padding-top : 100px;
+            padding-right: 200px;
+            padding-left : 200px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        form h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"],
+        form input[type="number"]{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+/* Style de base pour le bouton */
+
+        form button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 40%;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        error-message {
+            color: #ff0000;
+            margin-bottom: 16px;
+        }
+        h2 {
+            font-family: 'Arial', sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: red;
+
+            margin-bottom: 20px;
+            }
+
+
+
+</style>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+
+            {% if messages %}
+                {% for message in messages %}
+                    // Use Bootstrap modal to display messages
+                    var modal = new bootstrap.Modal(document.getElementById('messageModal'));
+                    document.getElementById('modalBody').innerText = "{{ message }}";
+                    modal.show();
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</head>
+
+<body>
+  <!-- Bootstrap modal for displaying messages -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Message content will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<form id="myForm" method="POST" >
+  {% csrf_token %}
+    <h2> Entrer vos valeures </h2>
+  {{ form.as_p }}
+    <div style="display : flex;  justify-content : space-between;">
+    <button type="submit" >Submit</button>
+    <button type="button" onclick="clearForm()">Clear Form </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function clearForm(){
+
+            var form= document.getElementById('myForm');
+
+            for(var i =0 ;i< form.elements.length; i++)
+                 {
+                     var element =form.elements[i];
+
+                     if(element.type !== "submit" && element.type !== "button")
+                      {
+//clear all the fields but the buttons
+                           element.value = '';
+                       }
+    }
+                            }
+
+    </script>
+</form>
+</body>
+</html>
