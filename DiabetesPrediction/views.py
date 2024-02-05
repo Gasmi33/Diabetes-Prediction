@@ -31,11 +31,23 @@ def predict(request):
             val4 = form.cleaned_data['val4']
             val5 = form.cleaned_data['val5']
             val6 = form.cleaned_data['val7']
-            val7 = form.cleaned_data['val7']
+            bmi = form.cleaned_data['val7']
             val8 = form.cleaned_data['val8']
             print(f"Val1: {val1},Val2: {val2}")
+            # if bmi<18.5:
+            #     messages.warning(request, 'Sous-poids')
+            # elif 18.5< bmi <24.9:
+            #     messages.warning(request, 'Poid normal')
+            # elif 25< bmi < 29.9:
+            #     messages.warning(request, 'Surpoids')
+            # elif 30 < bmi < 43.5:
+            #     messages.warning(request, 'Obésité de classe I')
+            # elif 35 < bmi < 39.9:
+            #     messages.warning(request, 'Obésité de classe II ')
+            # elif bmi > 40:
+            #     messages.warning(request, 'Obésité de classeIII (obésité sévère) ')
 
-            pared = model.predict([[val1, val2, val3, val4, val5, val6, val7, val8]])
+            pared = model.predict([[val1, val2, val3, val4, val5, val6, bmi, val8]])
 
             result1 = ""
             if pared == [1]:
